@@ -1,3 +1,4 @@
+import { Users } from "lucide-react";
 import { COMMUNITY_STATS, PERSONALITIES } from "@/data/personalities";
 import { PersonalityKey } from "@/types/quiz";
 
@@ -8,8 +9,9 @@ interface CommunityStatsProps {
 export default function CommunityStats({ highlight }: CommunityStatsProps) {
   return (
     <section className="w-full max-w-md" aria-label="Community results">
-      <h3 className="mb-1 text-center text-lg font-bold text-[color:var(--enku-ink)]">
-        You are not alone 😂
+      <h3 className="mb-1 flex items-center justify-center gap-2 text-center text-lg font-bold text-[color:var(--enku-ink)]">
+        <Users className="h-5 w-5 text-[color:var(--enku-gold-dark)]" aria-hidden="true" />
+        You are not alone
       </h3>
       <p className="mb-5 text-center text-sm text-black/50 dark:text-white/50">
         Here&apos;s how everyone else answered (so far).
@@ -18,12 +20,13 @@ export default function CommunityStats({ highlight }: CommunityStatsProps) {
       <ul className="flex flex-col gap-3">
         {COMMUNITY_STATS.map((stat) => {
           const p = PERSONALITIES[stat.key];
+          const Icon = p.icon;
           const isYou = stat.key === highlight;
           return (
             <li key={stat.key}>
               <div className="mb-1 flex items-center justify-between text-sm font-semibold text-[color:var(--enku-ink)]">
                 <span className="flex items-center gap-1.5">
-                  <span aria-hidden="true">{p.emoji}</span>
+                  <Icon className="h-4 w-4" aria-hidden="true" />
                   {p.name.replace("The ", "")}
                   {isYou && (
                     <span className="rounded-full bg-emerald-500 px-2 py-0.5 text-[11px] font-bold text-white">

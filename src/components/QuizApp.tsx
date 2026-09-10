@@ -6,6 +6,7 @@ import Quiz from "@/components/Quiz";
 import AnalysisScreen from "@/components/AnalysisScreen";
 import Result from "@/components/Result";
 import FlowerBackground from "@/components/FlowerBackground";
+import TopNav from "@/components/TopNav";
 import { scoreAnswers } from "@/lib/scoring";
 import { Answer, PersonalityKey } from "@/types/quiz";
 
@@ -28,6 +29,7 @@ export default function QuizApp() {
   return (
     <div className="relative flex min-h-full flex-1 flex-col">
       <FlowerBackground />
+      <TopNav />
 
       {stage === "landing" && <Landing onStart={() => setStage("quiz")} />}
 

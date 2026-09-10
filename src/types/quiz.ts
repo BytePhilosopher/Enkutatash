@@ -1,3 +1,5 @@
+import type { LucideIcon } from "lucide-react";
+
 export type PersonalityKey =
   | "procrastinator"
   | "academic"
@@ -8,19 +10,24 @@ export type PersonalityKey =
 export interface CardStat {
   label: string;
   value: string;
+  /** Show the small Ethiopian flag icon next to this stat */
+  isFlag?: boolean;
+}
+
+export interface Prediction {
+  icon: LucideIcon;
+  text: string;
 }
 
 export interface Personality {
   key: PersonalityKey;
-  emoji: string;
+  icon: LucideIcon;
   name: string;
   tagline: string;
   description: string;
-  predictions: string[];
+  predictions: Prediction[];
   cardStats: CardStat[];
-  /** Tailwind gradient classes used to theme the result + card for this personality */
-  gradient: string;
-  /** Solid accent color (hex) used for small UI bits, chart bars, etc. */
+  /** Solid accent color (hex) used for small UI bits, chart bars, etc. Never a gradient. */
   accent: string;
 }
 

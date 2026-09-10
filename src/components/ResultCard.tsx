@@ -1,4 +1,6 @@
 import { forwardRef } from "react";
+import { Flower2 } from "lucide-react";
+import EthiopianFlagIcon from "@/components/EthiopianFlagIcon";
 import { Personality } from "@/types/quiz";
 
 interface ResultCardProps {
@@ -8,15 +10,23 @@ interface ResultCardProps {
 export const CARD_WIDTH = 1080;
 export const CARD_HEIGHT = 1350;
 
+const GOLD = "#F5B700";
+const GOLD_DARK = "#B8850A";
+const INK = "#26140a";
+
 /**
  * The fixed 1080x1350 shareable card. Always rendered at its native size —
  * any on-screen scaling is applied by a *wrapper* (see Result.tsx), never on
  * this node itself, so html-to-image always captures full, crisp resolution.
+ *
+ * Solid Ethiopian New Year gold theme throughout — deliberately no gradients.
  */
 const ResultCard = forwardRef<HTMLDivElement, ResultCardProps>(function ResultCard(
   { personality },
   ref
 ) {
+  const Icon = personality.icon;
+
   return (
     <div
       ref={ref}
@@ -26,12 +36,21 @@ const ResultCard = forwardRef<HTMLDivElement, ResultCardProps>(function ResultCa
         position: "relative",
         overflow: "hidden",
         fontFamily: "var(--font-baloo), sans-serif",
-        color: "#26140a",
+        color: INK,
+        background: GOLD,
       }}
-      className={`bg-gradient-to-br ${personality.gradient}`}
     >
-      {/* decorative daisies */}
+      {/* decorative daisies + a solid frame border for a "print" feel */}
       <CornerDaisies />
+      <div
+        style={{
+          position: "absolute",
+          inset: 24,
+          border: `4px solid ${GOLD_DARK}`,
+          borderRadius: 28,
+          opacity: 0.5,
+        }}
+      />
 
       <div
         style={{
@@ -45,8 +64,18 @@ const ResultCard = forwardRef<HTMLDivElement, ResultCardProps>(function ResultCa
           textAlign: "center",
         }}
       >
-        <div style={{ fontSize: 40, fontWeight: 700, letterSpacing: 1 }}>
-          🌼 NEW YEAR, NEW ME… AGAIN?
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 16,
+            fontSize: 40,
+            fontWeight: 700,
+            letterSpacing: 1,
+          }}
+        >
+          <Flower2 size={40} color={INK} strokeWidth={2} />
+          NEW YEAR, NEW ME… AGAIN?
         </div>
         <div
           style={{
@@ -63,11 +92,17 @@ const ResultCard = forwardRef<HTMLDivElement, ResultCardProps>(function ResultCa
         <div
           style={{
             marginTop: 56,
-            fontSize: 150,
-            lineHeight: 1,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 220,
+            height: 220,
+            borderRadius: "9999px",
+            background: "rgba(255,255,255,0.55)",
+            border: `6px solid ${GOLD_DARK}`,
           }}
         >
-          {personality.emoji}
+          <Icon size={120} color={INK} strokeWidth={1.5} />
         </div>
 
         <div
@@ -120,7 +155,18 @@ const ResultCard = forwardRef<HTMLDivElement, ResultCardProps>(function ResultCa
               }}
             >
               <span>{stat.value}</span>
-              <span style={{ fontWeight: 600, fontSize: 28 }}>{stat.label}</span>
+              <span
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                  fontWeight: 600,
+                  fontSize: 28,
+                }}
+              >
+                {stat.label}
+                {stat.isFlag && <EthiopianFlagIcon size={30} />}
+              </span>
             </div>
           ))}
         </div>
@@ -166,8 +212,8 @@ function Petal({ style }: { style?: React.CSSProperties }) {
           cy="9"
           rx="5"
           ry="9"
-          fill="#ffffff"
-          opacity={0.35}
+          fill={GOLD_DARK}
+          opacity={0.25}
           transform={`rotate(${i * 45} 20 20)`}
         />
       ))}
@@ -179,9 +225,7 @@ function CornerDaisies() {
   return (
     <>
       <Petal style={{ position: "absolute", top: -60, left: -60 }} />
-      <Petal
-        style={{ position: "absolute", bottom: -70, right: -70, opacity: 0.9 }}
-      />
+      <Petal style={{ position: "absolute", bottom: -70, right: -70 }} />
     </>
   );
 }

@@ -23,7 +23,7 @@ export const QUESTIONS: QuizQuestion[] = [
       },
       {
         id: "q1-d",
-        text: "Manifesting a one-way ticket out of here. ✈️",
+        text: "Manifesting a one-way ticket out of here.",
         personality: "leaving",
       },
       {
@@ -167,7 +167,7 @@ export const QUESTIONS: QuizQuestion[] = [
         id: "q6-a",
         text: "100%, obviously.",
         personality: "academic",
-        easterEgg: "Please provide evidence. 😂",
+        easterEgg: "Please provide evidence.",
       },
       {
         id: "q6-b",

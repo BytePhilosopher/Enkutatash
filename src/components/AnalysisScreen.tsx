@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Flower2 } from "lucide-react";
 
 const MESSAGES = [
   "Analyzing your procrastination levels...",
@@ -43,8 +44,11 @@ export default function AnalysisScreen({ onDone }: AnalysisScreenProps) {
       className="mx-auto flex w-full max-w-md flex-1 flex-col items-center justify-center gap-8 px-6 py-16 text-center"
     >
       <div className="relative flex h-24 w-24 items-center justify-center">
-        <span className="absolute inline-flex h-full w-full animate-spin-slow rounded-full border-4 border-emerald-400/30 border-t-emerald-500" />
-        <span className="text-4xl animate-bounce-soft">🌼</span>
+        <span className="absolute inline-flex h-full w-full animate-spin-slow rounded-full border-4 border-[color:var(--enku-gold-light)] border-t-[color:var(--enku-gold)]" />
+        <Flower2
+          className="h-10 w-10 animate-bounce-soft text-[color:var(--enku-gold-dark)]"
+          aria-hidden="true"
+        />
       </div>
 
       <h2 className="text-xl font-bold text-[color:var(--enku-ink)] sm:text-2xl">
@@ -60,7 +64,7 @@ export default function AnalysisScreen({ onDone }: AnalysisScreenProps) {
 
       <div className="h-1.5 w-full max-w-[200px] overflow-hidden rounded-full bg-black/10 dark:bg-white/10">
         <div
-          className="h-full rounded-full bg-gradient-to-r from-amber-400 to-emerald-500 transition-[width] ease-linear"
+          className="h-full rounded-full bg-[color:var(--enku-gold)] transition-[width] ease-linear"
           style={{
             width: `${((messageIndex + 1) / MESSAGES.length) * 100}%`,
             transitionDuration: `${STEP_MS}ms`,

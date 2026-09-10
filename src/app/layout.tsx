@@ -20,7 +20,7 @@ const baloo = Baloo_2({
 
 const title = "New Year, New Me… Again? | Enkutatash 2019 E.C.";
 const description =
-  "Answer 6 painfully honest questions and find out which 2019 E.C. resolution personality you actually are. Made for Ethiopian New Year 😂";
+  "Answer 6 painfully honest questions and find out which 2019 E.C. resolution personality you actually are. Made for Ethiopian New Year.";
 
 export const metadata: Metadata = {
   title,

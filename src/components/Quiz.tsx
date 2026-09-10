@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowLeft } from "lucide-react";
 import { QUESTIONS } from "@/data/questions";
 import ProgressBar from "@/components/ProgressBar";
 import QuestionCard from "@/components/QuestionCard";
@@ -53,7 +54,7 @@ export default function Quiz({ onComplete, onExit }: QuizProps) {
           aria-label="Go back to the previous question"
           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-black/10 bg-white/70 text-lg text-[color:var(--enku-ink)] transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-500 active:scale-95 dark:border-white/10 dark:bg-white/5"
         >
-          ←
+          <ArrowLeft className="h-5 w-5" aria-hidden="true" />
         </button>
         <div className="flex-1">
           <ProgressBar current={index + 1} total={QUESTIONS.length} />

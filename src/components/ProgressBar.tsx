@@ -17,7 +17,7 @@ export default function ProgressBar({ current, total }: ProgressBarProps) {
         aria-label={`Question ${current} of ${total}`}
       >
         <div
-          className="h-full rounded-full bg-gradient-to-r from-amber-400 to-emerald-500 transition-[width] duration-500 ease-out"
+          className="h-full rounded-full bg-[color:var(--enku-gold)] transition-[width] duration-500 ease-out"
           style={{ width: `${percent}%` }}
         />
       </div>

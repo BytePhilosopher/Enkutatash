@@ -5,6 +5,10 @@
   --foreground: #26140a;
   --enku-bg: #fffaf0;
   --enku-ink: #26140a;
+  /* Ethiopian New Year (Enkutatash) gold theme — solid colors only, no gradients */
+  --enku-gold: #f5b700;
+  --enku-gold-dark: #b8850a;
+  --enku-gold-light: #ffe8a3;
 }
 
 @theme inline {

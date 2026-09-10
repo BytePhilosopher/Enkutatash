@@ -9,7 +9,7 @@ export function getSiteUrl(): string {
 }
 
 export function buildShareText(personality: Personality): string {
-  return `🌼 I found out what kind of person I am in 2019 E.C. 😂\n\nApparently I'm ${personality.name}.\n\nFind yours 👇`;
+  return `I found out what kind of person I am in 2019 E.C.\n\nApparently I'm ${personality.name}.\n\nFind yours:`;
 }
 
 export function buildTelegramShareUrl(text: string, url: string): string {
