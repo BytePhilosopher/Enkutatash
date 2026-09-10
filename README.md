@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌼 Enkutatash — New Year, New Me… Again?
 
-## Getting Started
+A funny, shareable Ethiopian New Year (Enkutatash, 2019 E.C.) personality
+quiz. Answer 6 painfully honest questions about your New Year resolutions
+and get roasted with one of five personalities, a set of predictions for
+your year, and a downloadable/shareable result card.
 
-First, run the development server:
+No accounts, no backend, no AI calls — just a fast, static Next.js app.
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build   # production build
+npm run lint    # eslint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## How it works
 
-## Learn More
+- `src/data/questions.ts` — the 6 quiz questions, 5 options each (one per
+  personality), some with an "easter egg" one-liner joke.
+- `src/data/personalities.ts` — the 5 personalities (Procrastinator,
+  Academic Weapon, Future Millionaire, I'm Leaving, Survivor), their
+  descriptions, predictions, and shareable-card stats. Also holds the
+  mock community distribution shown at the end (local data, no backend).
+- `src/lib/scoring.ts` — tallies one point per answer; most points wins,
+  ties break by a fixed priority order. Deliberately simple.
+- `src/components/QuizApp.tsx` — the whole state machine: landing → quiz
+  → analysis (loading) → result.
+- `src/components/ResultCard.tsx` — the shareable 1080×1350 card,
+  captured to PNG with `html-to-image` (`src/lib/cardGenerator.ts`) and
+  shared via Telegram's share URL / clipboard (`src/lib/share.ts`).
 
-To learn more about Next.js, take a look at the following resources:
+## Notes / assumptions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The product spec this app was built from arrived starting at section 12
+(predictions/easter eggs onward) — sections 1–11 covering the concept,
+exact question copy, and personality list didn't come through. Everything
+upstream of section 12 was inferred from context (Ethiopian New Year
+2019 E.C., the 5 personalities and their percentages named in the
+community section) and written from scratch:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- The 6 quiz questions and their exact wording (`data/questions.ts`).
+- Full personality descriptions/taglines/predictions beyond the two
+  example lines given (`data/personalities.ts`).
+- Visual direction: warm Adey Abeba (Meskel daisy) yellow/gold + cream,
+  a rounded display font (Baloo 2) for headings.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+If there was more specific direction for any of that in the missing
+sections, it's an easy swap in `data/questions.ts` / `data/personalities.ts`
+— nothing else depends on the exact copy.

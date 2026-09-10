@@ -19,12 +19,20 @@ export default function QuestionCard({
   selectedOptionId,
   onAnswer,
 }: QuestionCardProps) {
-  const [pendingId, setPendingId] = useState<string | undefined>(selectedOptionId);
+  // tappedId is only set the moment the user picks something *in this mount* —
+  // it drives the "advancing, ignore further taps" lock. `selectedOptionId`
+  // (a previous answer, when arriving here via the back button) only drives
+  // which option is *highlighted*; it must never block a fresh tap, or the
+  // user could get stuck unable to leave a question they'd already answered.
+  const [tappedId, setTappedId] = useState<string | null>(null);
   const [eggFor, setEggFor] = useState<string | null>(null);
 
+  const isAdvancing = tappedId !== null;
+  const activeId = tappedId ?? selectedOptionId;
+
   function handlePick(option: QuizOption) {
-    if (pendingId) return; // already advancing, ignore extra taps
-    setPendingId(option.id);
+    if (isAdvancing) return; // already advancing, ignore extra taps
+    setTappedId(option.id);
     if (option.easterEgg) setEggFor(option.id);
 
     window.setTimeout(() => {
@@ -40,13 +48,13 @@ export default function QuestionCard({
 
       <div className="flex flex-col gap-3">
         {question.options.map((option) => {
-          const isSelected = pendingId === option.id;
+          const isSelected = activeId === option.id;
           return (
             <div key={option.id} className="flex flex-col">
               <button
                 type="button"
                 aria-pressed={isSelected}
-                disabled={!!pendingId && !isSelected}
+                disabled={isAdvancing && !isSelected}
                 onClick={() => handlePick(option)}
                 className={`min-h-[3.25rem] w-full rounded-2xl border-2 px-5 py-3.5 text-left text-base font-medium leading-snug transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 disabled:opacity-40 ${
                   isSelected
